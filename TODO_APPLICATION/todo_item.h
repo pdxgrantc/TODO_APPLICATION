@@ -1,5 +1,6 @@
 #pragma once
 
+#include "DATE.h"
 #include <string>
 
 class TODO_ITEM
@@ -11,8 +12,8 @@ protected:
 	std::string information;
 	bool complete;
 public:
-	TODO_ITEM(std::string name, int creation_date, int due_date, std::string information);
-	void create_item(std::string name, int creation_date, int due_date, std::string information);
+	TODO_ITEM();
+	void create_item(std::string name, DATE creation_date, DATE due_date, std::string information);
 
 };
 

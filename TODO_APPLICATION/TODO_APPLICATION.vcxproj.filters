@@ -24,12 +24,24 @@
     <ClCompile Include="TODO_ITEM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="APPLICATION.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DATE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="STORAGE_INTERFACE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TODO_ITEM.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="APPLICATION.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DATE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

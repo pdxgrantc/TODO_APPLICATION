@@ -1,16 +1,11 @@
 #include "TODO_ITEM.h"
+#include "DATE.h"
 #include <string>
 
-TODO_ITEM::TODO_ITEM(std::string name, int creation_date, int due_date, std::string information) {
-	/*
-	name = this.name;
-	creation_date = this.creation_date;
-	due_date = this.due_date;
-	information = this.information;
-	*/
+TODO_ITEM::TODO_ITEM() {
 	complete = false;
 }
 
-void TODO_ITEM::create_item(std::string name, int creation_date, int due_date, std::string information) {
+void TODO_ITEM::create_item(std::string name, DATE creation_date, DATE due_date, std::string information) {
 	
 }
