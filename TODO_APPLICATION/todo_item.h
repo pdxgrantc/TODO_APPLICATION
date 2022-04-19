@@ -7,13 +7,18 @@ class TODO_ITEM
 {
 protected:
 	std::string title;
-	int creation_date;
-	int due_date;
+	DATE creation_date;
+	DATE due_date;
 	std::string information;
 	bool complete;
 public:
 	TODO_ITEM();
 	void create_item(std::string name, DATE creation_date, DATE due_date, std::string information);
-
+	void mark_complete();
+	std::string get_title();
+	DATE get_creation_date();
+	DATE get_due_date();
+	std::string get_information();
+	bool get_complete();
 };
 
