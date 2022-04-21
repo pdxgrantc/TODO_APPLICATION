@@ -1,17 +1,18 @@
 #include "TODO_ITEM.h"
 #include "DATE.h"
 #include <string>
+#include <iostream>
 
 TODO_ITEM::TODO_ITEM() {
 	complete = false;
 }
 
-void TODO_ITEM::create_item(std::string title, DATE creation_date, DATE due_date, std::string information) {
-	title = this->title;
-	creation_date = this->creation_date;
-	due_date = this->due_date;
-	information = this->information;
-	title = this->title;
+void TODO_ITEM::create_item(std::string new_title, DATE new_creation_date, DATE new_due_date, std::string new_information) {
+	title = new_title;
+	creation_date = new_creation_date;
+	due_date = new_due_date;
+	information = new_information;
+	title = new_title;
 	complete = false;
 }
 

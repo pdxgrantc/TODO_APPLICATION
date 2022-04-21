@@ -144,12 +144,18 @@
     <ClCompile Include="STORAGE_INTERFACE.cpp" />
     <ClCompile Include="TODO_APPLICATION.cpp" />
     <ClCompile Include="TODO_ITEM.cpp" />
+    <ClCompile Include="UTILITIES.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="APPLICATION.h" />
     <ClInclude Include="DATE.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="STORAGE_INTERFACE.h" />
     <ClInclude Include="TODO_ITEM.h" />
+    <ClInclude Include="UTILITIES.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TODO_APPLICATION.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

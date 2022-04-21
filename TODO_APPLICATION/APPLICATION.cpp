@@ -2,19 +2,35 @@
 #include <string>
 #include "STORAGE_INTERFACE.h"
 #include "APPLICATION.h"
+#include "UTILITIES.h"
 
 STORAGE_INTERFACE* create_db();
 void delete_ptrs(STORAGE_INTERFACE* db);
 int take_top_choice_input();
-bool is_number(std::string input);
 
 APPLICATION::APPLICATION() {
 	db = create_db();
+    
+    //test_additions();
 
-    int top_choice = take_top_choice_input();
-    main_driver(top_choice);
-
+    
+    while (true) {
+        int top_choice = take_top_choice_input();
+        main_driver(top_choice);
+        if (top_choice == 6) {
+            break;
+        }
+    }
+    
     delete_ptrs(db);
+}
+
+void APPLICATION::test_additions() {
+    db->test();
+    db->test();
+    db->test();
+    db->test();
+    db->print_list();
 }
 
 void APPLICATION::main_driver(int top_choice) {
@@ -22,16 +38,23 @@ void APPLICATION::main_driver(int top_choice) {
     {
     case 1:
         print_list();
+        break;
     case 2:
         create_new_todo();
+        std::cout << std::endl;
+        break;
     case 3:
         edit_item();
+        break;
     case 4:
         mark_complete();
+        break;
     case 5:
         delete_item();
+        break;
     case 6:
         save_and_quit();
+        break;
     default:
         break;
     }
@@ -44,7 +67,7 @@ void APPLICATION::print_list() {
 void APPLICATION::create_new_todo() {
     DATE due_date;
     std::string title, information;
-    db->create_new_todo_item(title, due_date, information);
+    db->create_new_todo_item();
 }
 
 void APPLICATION::edit_item() {}
@@ -66,7 +89,7 @@ int take_top_choice_input() {
     std::cout << "Enter a number here: ";
     std::string str;
     int input = 6;
-    std::cin >> str;
+    getline(std::cin, str);
     while (true) {
         if ((is_number(str)) && (stoi(str) > 0) && (stoi(str) < 7)) {
             input = stoi(str);
@@ -76,21 +99,13 @@ int take_top_choice_input() {
             std::cout << "please enter a integer relating to a list item." << std::endl;
         }
     }
+    std::cout << std::endl;
     return input;
-}
-
-bool is_number(std::string input) {
-    for (int i = 0; i < input.length(); i++) {
-        if (isdigit(input[i]) == false) {
-            return false;
-        }
-    }
-    return true;
 }
 
 STORAGE_INTERFACE* create_db()
 {
-    STORAGE_INTERFACE* db = new STORAGE_INTERFACE;
+    STORAGE_INTERFACE *db = new STORAGE_INTERFACE;
     return db;
 }
 

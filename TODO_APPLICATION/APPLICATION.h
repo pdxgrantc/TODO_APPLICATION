@@ -17,5 +17,7 @@ public:
 	void mark_complete();
 	void delete_item();
 	void save_and_quit();
+
+	void test_additions();
 };
 
