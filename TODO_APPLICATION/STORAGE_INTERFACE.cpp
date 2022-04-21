@@ -25,6 +25,18 @@ STORAGE_INTERFACE::~STORAGE_INTERFACE() {
 	//cout << "database deleted" << endl;
 }
 
+int STORAGE_INTERFACE::get_num_items() {
+	return todo_items.size();
+}
+
+void STORAGE_INTERFACE::remove(int index) {
+	todo_items.erase(todo_items.begin() + index);
+}
+
+void STORAGE_INTERFACE::mark_complete(int index) {
+	todo_items[index].mark_complete();
+}
+
 void STORAGE_INTERFACE::create_new_todo_item() {
 	TODO_ITEM new_item = TODO_ITEM();
 	DATE creation_date = DATE();

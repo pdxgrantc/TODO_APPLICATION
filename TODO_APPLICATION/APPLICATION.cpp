@@ -7,13 +7,14 @@
 STORAGE_INTERFACE* create_db();
 void delete_ptrs(STORAGE_INTERFACE* db);
 int take_top_choice_input();
+void edit_item_stage_two(int);
 
 APPLICATION::APPLICATION() {
 	db = create_db();
     
-    //test_additions();
-
-    
+    test_additions();
+    edit_item();
+    /*
     while (true) {
         int top_choice = take_top_choice_input();
         main_driver(top_choice);
@@ -21,7 +22,7 @@ APPLICATION::APPLICATION() {
             break;
         }
     }
-    
+    */
     delete_ptrs(db);
 }
 
@@ -70,13 +71,84 @@ void APPLICATION::create_new_todo() {
     db->create_new_todo_item();
 }
 
-void APPLICATION::edit_item() {}
+void APPLICATION::edit_item() {
+    print_list();
+    std::string cache;
+    int index;
+    while (true) {
+        std::cout << "Which item number do you want to edit: ";
+        getline(std::cin, cache);
+        if (is_number(cache) && (stoi(cache) < (db->get_num_items() + 1)) && (stoi(cache) > 0)) {
+            index = stoi(cache);
+            break;
+        }
+        else {
+            std::cout << "You didn't enter an index value in the list." << std::endl;
+        }
+    }
+    edit_item_stage_two(index);
+}
 
-void APPLICATION::mark_complete() {}
+void edit_item_stage_two(int index) {
+    std::cout << "Please choose an option below for whihc element you would like to edit:" << std::endl;
+    std::cout << "1. Title" << std::endl;
+    std::cout << "2. Due date" << std::endl;
+    std::cout << "3. Description" << std::endl;
+    std::cout << "Enter a number here: ";
+    std::string str;
+    int input = 6;
+    getline(std::cin, str);
+    while (true) {
+        if ((is_number(str)) && (stoi(str) > 0) && (stoi(str) < 4)) {
+            input = stoi(str);
+            break;
+        }
+        else {
+            std::cout << "Please enter a integer relating to a list item." << std::endl;
+        }
+    }
+    std::cout << std::endl;
+}
 
-void APPLICATION::delete_item() {}
+void APPLICATION::mark_complete() {
+    print_list();
+    std::string cache;
+    int index;
+    while (true) {
+        std::cout << "Which item number do you want to mark complete: ";
+        getline(std::cin, cache);
+        if (is_number(cache) && (stoi(cache) < (db->get_num_items() + 1)) && (stoi(cache) > 0)) {
+            index = stoi(cache);
+            break;
+        }
+        else {
+            std::cout << "You didn't enter an index value in the list." << std::endl;
+        }
+    }
+    db->mark_complete(index);
+}
 
-void APPLICATION::save_and_quit() {}
+void APPLICATION::delete_item() {
+    print_list();
+    std::string cache;
+    int index;
+    while (true) {
+        std::cout << "Which item number do you want to delete: ";
+        getline(std::cin, cache);
+        if (is_number(cache) && (stoi(cache) < (db->get_num_items() + 1)) && (stoi(cache) > 0)) {
+            index = stoi(cache);
+            break;
+        }
+        else {
+            std::cout << "You didn't enter an index value in the list." << std::endl;
+        }
+    }
+    db->remove(index);
+}
+
+void APPLICATION::save_and_quit() {
+    // Needs to write to a file
+}
 
 int take_top_choice_input() {
     std::cout << "Please choose an option below:" << std::endl;
@@ -96,7 +168,7 @@ int take_top_choice_input() {
             break;
         }
         else {
-            std::cout << "please enter a integer relating to a list item." << std::endl;
+            std::cout << "Please enter a integer relating to a list item." << std::endl;
         }
     }
     std::cout << std::endl;

@@ -14,6 +14,9 @@ public:
 	void test();
 	void create_new_todo_item();
 	void print_list();
+	void remove(int);
+	void mark_complete(int);
+	int get_num_items();
 	STORAGE_INTERFACE();
 	~STORAGE_INTERFACE();
 };
