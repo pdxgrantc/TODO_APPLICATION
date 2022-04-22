@@ -20,5 +20,8 @@ public:
 	DATE get_due_date();
 	std::string get_information();
 	bool get_complete();
+	void set_title(std::string);
+	void set_due_date(DATE);
+	void set_description(std::string);
 };
 

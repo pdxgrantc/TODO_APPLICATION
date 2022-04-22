@@ -8,25 +8,43 @@
 using namespace std;
 
 void print_month(int);
-DATE get_due_date();
+DATE get_due_date_user();
 
-void STORAGE_INTERFACE::test() {
+void STORAGE_INTERFACE::test(int test_val) {
 	DATE creation_date = DATE();
 	TODO_ITEM new_item = TODO_ITEM();
-	new_item.create_item("Grant", creation_date, creation_date, "Information");
+	if (test_val == 0) {
+		new_item.create_item("Grant0", creation_date, creation_date, "Information0");
+	}
+	else if (test_val == 1) {
+		new_item.create_item("Grant1", creation_date, creation_date, "Information1");
+	}
+	else if (test_val == 2) {
+		new_item.create_item("Grant2", creation_date, creation_date, "Information2");
+	}
+	else if (test_val == 3) {
+		new_item.create_item("Grant3", creation_date, creation_date, "Information3");
+	}
+
 	todo_items.push_back(new_item);
 }
 
-STORAGE_INTERFACE::STORAGE_INTERFACE() {
-	//cout << "database created" << endl;
+size_t STORAGE_INTERFACE::get_num_items() {
+	size_t value = todo_items.size();
+	return value;
 }
 
-STORAGE_INTERFACE::~STORAGE_INTERFACE() {
-	//cout << "database deleted" << endl;
+void STORAGE_INTERFACE::change_title(int index, string title) {
+	todo_items[index].set_title(title);
 }
 
-int STORAGE_INTERFACE::get_num_items() {
-	return todo_items.size();
+void STORAGE_INTERFACE::change_due_date(int index, DATE new_due_date)
+{
+	todo_items[index].set_due_date(new_due_date);
+}
+
+void STORAGE_INTERFACE::change_description(int index, string description) {
+	todo_items[index].set_description(description);
 }
 
 void STORAGE_INTERFACE::remove(int index) {
@@ -40,7 +58,7 @@ void STORAGE_INTERFACE::mark_complete(int index) {
 void STORAGE_INTERFACE::create_new_todo_item() {
 	TODO_ITEM new_item = TODO_ITEM();
 	DATE creation_date = DATE();
-	DATE due_date = get_due_date();
+	DATE due_date = get_due_date_user();
 	string name, information;
 	cout << "Please enter a name for your todo item: ";
 	getline(cin, name);
@@ -48,47 +66,6 @@ void STORAGE_INTERFACE::create_new_todo_item() {
 	getline(cin, information);
 	new_item.create_item(name, creation_date, due_date, information);
 	todo_items.push_back(new_item);
-}
-
-DATE get_due_date() {
-	int day, month, year;
-	string cache;
-	while (true) {
-		cout << "Please enter a day between 1 - 31: ";
-		getline(cin, cache);
-		if ((is_number(cache)) && (stoi(cache) > 0) && (stoi(cache) < 32)) {
-			day = stoi(cache);
-			break;
-		}
-		else {
-			cout << "Invalid input. ";
-		}
-	}
-	while (true) {
-		cout << "Please enter a month between 1 - 12: ";
-		getline(cin, cache);
-		if ((is_number(cache)) && (stoi(cache) > 0) && (stoi(cache) < 13)) {
-			month = stoi(cache);
-			break;
-		}
-		else {
-			cout << "Invalid input. ";
-		}
-	}
-	while (true) {
-		cout << "Please enter a year greater than 1970: ";
-		getline(cin, cache);
-		if ((is_number(cache)) && (stoi(cache) > 1970)) {
-			year = stoi(cache);
-			break;
-		}
-		else {
-			cout << "Invalid input. ";
-		}
-	}
-	DATE due_date = DATE(day, month, year);
-	return due_date;
-	
 }
 
 void STORAGE_INTERFACE::print_list() {
@@ -135,6 +112,48 @@ void STORAGE_INTERFACE::print_list() {
 		}
 		cout << endl;
 	}
+}
+
+void STORAGE_INTERFACE::print_list_item(int index) {
+	TODO_ITEM item = todo_items[index];
+	cout << "Task " << (index + 1) << ":" << endl;
+	int int_cache;
+	string str_cache, str_cachet;
+	DATE date_cache;
+	bool bool_cache;
+	str_cache = item.get_title();
+	cout << "Title: " << "\t\t";
+	cout << str_cache << endl;
+	date_cache = item.get_creation_date();
+	cout << "Created on: " << '\t';
+	int_cache = date_cache.get_month();
+	print_month(int_cache);
+	str_cache = to_string(date_cache.get_day());
+	cout << " " << str_cache << ", ";
+	str_cache = to_string(date_cache.get_year());
+	cout << str_cache << endl;
+	date_cache = item.get_due_date();
+	cout << "Due date: " << '\t';
+	print_month(int_cache);
+	str_cache = to_string(date_cache.get_day());
+	cout << " " << str_cache << ", ";
+	str_cache = to_string(date_cache.get_year());
+	cout << str_cache << endl;
+	str_cachet = item.get_information();
+	cout << "Description: " << '\t';
+	cout << str_cachet << endl;
+	bool_cache = item.get_complete();
+	cout << "Status: " << '\t';
+	switch (bool_cache)
+	{
+	case true:
+		cout << "Complete" << endl;
+		break;
+	case false:
+		cout << "Incomplete" << endl;
+		break;
+	}
+	cout << endl;
 }
 
 void print_month(int month) {

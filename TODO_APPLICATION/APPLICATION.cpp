@@ -7,14 +7,12 @@
 STORAGE_INTERFACE* create_db();
 void delete_ptrs(STORAGE_INTERFACE* db);
 int take_top_choice_input();
-void edit_item_stage_two(int);
 
 APPLICATION::APPLICATION() {
 	db = create_db();
     
     test_additions();
-    edit_item();
-    /*
+    
     while (true) {
         int top_choice = take_top_choice_input();
         main_driver(top_choice);
@@ -22,15 +20,15 @@ APPLICATION::APPLICATION() {
             break;
         }
     }
-    */
+    
     delete_ptrs(db);
 }
 
 void APPLICATION::test_additions() {
-    db->test();
-    db->test();
-    db->test();
-    db->test();
+    db->test(0);
+    db->test(1);
+    db->test(2);
+    db->test(3);
     db->print_list();
 }
 
@@ -66,7 +64,6 @@ void APPLICATION::print_list() {
 }
 
 void APPLICATION::create_new_todo() {
-    DATE due_date;
     std::string title, information;
     db->create_new_todo_item();
 }
@@ -86,17 +83,20 @@ void APPLICATION::edit_item() {
             std::cout << "You didn't enter an index value in the list." << std::endl;
         }
     }
+    index--;
     edit_item_stage_two(index);
+    //db->print_list();
+    db->print_list_item(index);
 }
 
-void edit_item_stage_two(int index) {
+void APPLICATION::edit_item_stage_two(int index) {
     std::cout << "Please choose an option below for whihc element you would like to edit:" << std::endl;
     std::cout << "1. Title" << std::endl;
     std::cout << "2. Due date" << std::endl;
     std::cout << "3. Description" << std::endl;
     std::cout << "Enter a number here: ";
     std::string str;
-    int input = 6;
+    int input;
     getline(std::cin, str);
     while (true) {
         if ((is_number(str)) && (stoi(str) > 0) && (stoi(str) < 4)) {
@@ -106,6 +106,28 @@ void edit_item_stage_two(int index) {
         else {
             std::cout << "Please enter a integer relating to a list item." << std::endl;
         }
+    }
+    std::cout << std::endl;
+    std::string cache;
+    DATE new_due_date;
+    switch (input)
+    {
+    case 1:
+        std::cout << "Please enter a new title: ";
+        getline(std::cin, cache);
+        db->change_title(index, cache);
+        break;
+    case 2:
+        new_due_date = get_due_date_user();
+        db->change_due_date(index, new_due_date);
+        break;
+    case 3:
+        std::cout << "Please enter a new description: ";
+        getline(std::cin, cache);
+        db->change_description(index, cache);
+        break;
+    default:
+        break;
     }
     std::cout << std::endl;
 }
@@ -125,6 +147,7 @@ void APPLICATION::mark_complete() {
             std::cout << "You didn't enter an index value in the list." << std::endl;
         }
     }
+    index--;
     db->mark_complete(index);
 }
 
@@ -143,6 +166,7 @@ void APPLICATION::delete_item() {
             std::cout << "You didn't enter an index value in the list." << std::endl;
         }
     }
+    index--;
     db->remove(index);
 }
 

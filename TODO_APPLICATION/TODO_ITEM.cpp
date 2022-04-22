@@ -39,3 +39,15 @@ std::string TODO_ITEM::get_information() {
 bool TODO_ITEM::get_complete() {
 	return complete;
 }
+
+void TODO_ITEM::set_title(std::string new_title) {
+	title = new_title;
+}
+
+void TODO_ITEM::set_due_date(DATE new_date) {
+	due_date = new_date;
+}
+
+void TODO_ITEM::set_description(std::string new_description) {
+	information = new_description;
+}
