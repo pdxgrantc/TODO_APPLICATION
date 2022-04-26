@@ -85,7 +85,6 @@ void APPLICATION::edit_item() {
     }
     index--;
     edit_item_stage_two(index);
-    //db->print_list();
     db->print_list_item(index);
 }
 
